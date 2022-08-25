@@ -16,7 +16,7 @@ async function adminregisterValidation(req: Request, res: Response, next: NextFu
         "email": `required|string|min:4|max:255|exist:${AppConstants.MODEL_ADMIN},email`,
         "mobile": `required|min:10|exist:${AppConstants.MODEL_ADMIN},mobile`,
         "password": "required|min:4|max:50",
-        "adminrole": "required|in:" + adminRoles.join(","),
+        // "adminrole": "required|in:" + adminRoles.join(","),
     }
     validator.validatorUtilWithCallback(validationRule, {}, req, res, next);
 }

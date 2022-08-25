@@ -81,7 +81,7 @@ async function login(req: Request, res: Response) {
       res.clearCookie('refreshToken');
       return commonUtils.sendAdminError(req, res, { message: AppStrings.INVALID_PASSWORD }, 409);
     }
-    const { refreshToken, accessToken } = await Auth.login(admin._id, admin.adminrole, admin.createdAt,device);
+    const { refreshToken, accessToken } = await Auth.login(admin._id, UserType.ADMIN, admin.createdAt,device);
     await Admin.findByIdAndUpdate(admin._id, { $set: { lastLogin: new Date() } }).exec();
     res.cookie("accessToken", accessToken, { maxAge: 900000, httpOnly: true });
     res.cookie("refreshToken", refreshToken, { maxAge: 900000, httpOnly: true });

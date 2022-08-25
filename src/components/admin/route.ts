@@ -1,5 +1,6 @@
 import auth from "../../auth";
 import authController from "./controller/authController";
+import adminController from "./controller/adminController";
 import V from "./validation";
 // path: "", method: "post", controller: "",
 // validation: ""(can be array of validation), 
@@ -78,6 +79,12 @@ export default [
         path: "/role/assign",
         method: "post",
         controller: authController.assignRole,
+    },
+
+    {
+        path: "/user/list",
+        method: "get",
+        controller: adminController.userList,
     },
     
 ];
