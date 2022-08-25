@@ -1,0 +1,45 @@
+import { AppConstants } from "../../utils/appConstants";
+import mongoose from "mongoose";
+import { Device } from "../../utils/enum";
+
+const deviceType =  Object.values(Device).filter(value => typeof value === 'number');
+
+const Schema = mongoose.Schema;
+const tokenSchema = new Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "user",
+  },
+  otp: {
+    type: String,
+    required: true,
+  },
+  token: {
+    type: String,
+    required: true,
+  },
+  device: {
+    type: Number,
+    enum: deviceType,      
+  },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  forSignUp: {
+    type: Boolean,
+    default: false,
+  },
+  requestCount: {
+    type: Number,
+    default: 0,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    expires: AppConstants.TOKEN_EXPIRY_TIME    
+  },
+}, {timestamps: true});
+
+module.exports =  mongoose.model(AppConstants.MODEL_TOKEN, tokenSchema);
